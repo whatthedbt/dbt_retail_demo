@@ -1,0 +1,14 @@
+version: 2
+
+sources:
+  - name: retail_src
+    database: retail_db
+    schema: retail_schema
+    tables:
+      - name: customers
+      - name: orders
+      - name: order_items
+      - name: products
+      - name: categories
+      - name: departments
+      
