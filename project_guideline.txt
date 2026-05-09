@@ -1,0 +1,25 @@
+1. Cleaning Stages (Staging Layer)
+In the staging layer (prefixed with stg_), your goal is to create a clean, standardized 1:1 reflection of your S3-sourced tables.
+Column Renaming: Standardize names (e.g., cust_id to customer_id, cat_name to category_name).
+Type Casting: Convert raw S3 strings to appropriate Snowflake types (e.g., order_date to TIMESTAMP, price to DECIMAL).
+Deduplication: Use ROW_NUMBER() or similar logic to remove duplicate records from your source data.
+Filtering: Filter out test records, deleted rows (if soft-deleted), or extraneous data that shouldn't move downstream.
+Standardizing Formats: Ensure consistent casing (e.g., uppercase states) and handle nulls (e.g., COALESCE(category, 'Uncategorized')).
+
+
+2. Business Logic (Intermediate Layer)
+This layer (prefixed with int_) is where you join your cleaned staging models to prepare them for final reporting.
+Order Enrichment: Join stg_orders with stg_order_items and stg_products to calculate the total value of each order at the line-item level.
+Category Hierarchy: Join stg_products, stg_categories, and stg_departments to create a single product dimension with a clear hierarchy (e.g., Department > Category > Product).
+Customer Snapshots: Calculate customer-level metrics like first_order_date, total_lifetime_orders, and last_active_date.
+Status Flags: Use CASE WHEN logic to define business statuses, such as marking orders as is_delayed if they haven't shipped within 48 hours.
+
+
+3. Final Reports (Mart Layer)
+The mart layer (prefixed with fct_ or dim_) provides the final, denormalized tables optimized for BI tools.
+fct_orders (Fact Table): A grain of one row per order, containing all financial metrics (revenue, tax, shipping costs) and foreign keys to customers and products.
+dim_customers (Dimension Table): A comprehensive table for each customer, enriched with their purchase history and segments (e.g., "VIP" vs. "Inactive").
+agg_daily_sales (Aggregated Report): A pre-aggregated table showing total revenue and order count by department_name and order_date for fast executive dashboards.
+
+
+

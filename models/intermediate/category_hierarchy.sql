@@ -1,5 +1,5 @@
-{#Category Hierarchy: Join stg_products, stg_categories, 
-and stg_departments to create a single product dimension with a clear hierarchy (e.g., Department > Category > Product)#}
+{# Category Hierarchy: Join stg_products, stg_categories, 
+and stg_departments to create a single product dimension with a clear hierarchy (e.g., Department > Category > Product) #}
 
 with departments as (
     select * from {{ source('retail_src', 'departments') }}
