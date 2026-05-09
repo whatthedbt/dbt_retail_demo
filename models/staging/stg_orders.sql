@@ -1,4 +1,3 @@
-
 with source as (
 select * from {{ source('retail_src', 'orders') }}
 ),
