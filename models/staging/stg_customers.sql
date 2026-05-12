@@ -6,7 +6,7 @@ with source as(
 renamed as (
     select customer_id,
     customer_name,
-    email as customer_email,
+    {{coalesce_null(email, default)}} as customer_email,
     state as state_code
     from source
 )

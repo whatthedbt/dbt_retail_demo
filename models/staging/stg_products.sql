@@ -6,7 +6,8 @@ renamed as (
     select product_id,
     category_id, 
     product_name,
-    price as product_price
+    price,
+    {{ cents_to_dollars('price')}} as product_price
     from source
 )
 

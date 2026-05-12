@@ -22,3 +22,4 @@ final as (
 )
 
 select * from final order by order_id
+
