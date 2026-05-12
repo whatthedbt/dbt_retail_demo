@@ -81,19 +81,19 @@ show stages;
 copy into bookings
 from @snow_stage
 files = ('reviews.csv')
-credentials = (aws_key_id = 'AKIATD4GYG4MO75VBMMF', aws_secret_key='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');
+credentials = (aws_key_id = '', aws_secret_key='');
 
 
 copy into listings
 from @snow_stage
 files = ('listings.csv')
-credentials = (aws_key_id = 'AKIATD4GYG4MO75VBMMF', aws_secret_key='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');
+credentials = (aws_key_id = '', aws_secret_key='');
 
 
 copy into hosts
 from @snow_stage
 files = ('hosts.csv')
-credentials = (aws_key_id = 'AKIATD4GYG4MO75VBMMF', aws_secret_key='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');
+credentials = (aws_key_id = '', aws_secret_key='');
 
 
 select * from listings;
